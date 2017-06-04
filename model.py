@@ -473,27 +473,26 @@ class SEGAN(Model):
                         wavfile.write(os.path.join(save_path,
                                                    'sample_{}-'
                                                    '{}.wav'.format(counter, m)),
-                                      16e3,
-                                      de_emph(canvas_w[m],
-                                              self.preemph))
+                                      16000,
+                                      de_emph(canvas_w[m],self.preemph))
                         m_gtruth_path = os.path.join(save_path, 'gtruth_{}.'
                                                                 'wav'.format(m))
                         if not os.path.exists(m_gtruth_path):
                             wavfile.write(os.path.join(save_path,
                                                        'gtruth_{}.'
                                                        'wav'.format(m)),
-                                          16e3,
+                                          16000,
                                           de_emph(swaves[m],
                                                   self.preemph))
                             wavfile.write(os.path.join(save_path,
                                                        'noisy_{}.'
                                                        'wav'.format(m)),
-                                          16e3,
+                                          16000,
                                           de_emph(sample_noisy[m],
                                                   self.preemph))
                             wavfile.write(os.path.join(save_path,
                                                        'dif_{}.wav'.format(m)),
-                                          16e3,
+                                          16000,
                                           de_emph(sample_dif[m],
                                                   self.preemph))
                         np.savetxt(os.path.join(save_path, 'd_rl_losses.txt'),
@@ -785,11 +784,11 @@ class SEAE(Model):
                     sample_dif = sample_wav - sample_noisy
                     for m in range(min(20, canvas_w.shape[0])):
                         print('w{} max: {} min: {}'.format(m, np.max(canvas_w[m]), np.min(canvas_w[m])))
-                        wavfile.write(os.path.join(save_path, 'sample_{}-{}.wav'.format(counter, m)), 16e3, canvas_w[m])
+                        wavfile.write(os.path.join(save_path, 'sample_{}-{}.wav'.format(counter, m)), 16000, canvas_w[m])
                         if not os.path.exists(os.path.join(save_path, 'gtruth_{}.wav'.format(m))):
-                            wavfile.write(os.path.join(save_path, 'gtruth_{}.wav'.format(m)), 16e3, swaves[m])
-                            wavfile.write(os.path.join(save_path, 'noisy_{}.wav'.format(m)), 16e3, sample_noisy[m])
-                            wavfile.write(os.path.join(save_path, 'dif_{}.wav'.format(m)), 16e3, sample_dif[m])
+                            wavfile.write(os.path.join(save_path, 'gtruth_{}.wav'.format(m)), 16000, swaves[m])
+                            wavfile.write(os.path.join(save_path, 'noisy_{}.wav'.format(m)), 16000, sample_noisy[m])
+                            wavfile.write(os.path.join(save_path, 'dif_{}.wav'.format(m)), 16000, sample_dif[m])
                         np.savetxt(os.path.join(save_path, 'g_losses.txt'), g_losses)
 
                 if batch_idx >= num_batches:
